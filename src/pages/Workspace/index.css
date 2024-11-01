@@ -1,0 +1,12 @@
+thead th {
+    padding-top: 12px !important;
+    padding-bottom: 12px !important;
+}
+
+thead th:first-child {
+    @apply rounded-l-[8px];
+}
+
+thead th:last-child {
+    @apply rounded-r-[8px];
+}

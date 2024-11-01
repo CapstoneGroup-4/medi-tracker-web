@@ -17,6 +17,7 @@ import { cn } from "./cn";
 
 import Sidebar from "./sidebar";
 import { Outlet } from "react-router-dom";
+import NavigationHeaderWithTabs from "../navigation-header-with-tabs/App";
 
 /**
  *  This example requires installing the `usehooks-ts` package:
@@ -133,22 +134,10 @@ export default function WorkspaceLayout() {
                     </Tooltip>
                 </div>
             </div>
-            <div className="w-full flex-1 flex-col p-4">
-                <header className="flex items-center gap-3 rounded-medium border-small border-divider p-4">
-                    <Button isIconOnly size="sm" variant="light" onPress={onToggle}>
-                        <Icon
-                            className="text-default-500"
-                            height={24}
-                            icon="solar:sidebar-minimalistic-outline"
-                            width={24}
-                        />
-                    </Button>
-                    <h2 className="text-medium font-medium text-default-700">Overview</h2>
-                </header>
-                <main className="mt-4 h-full w-full overflow-visible">
-                    <div className="flex h-[90%] w-full flex-col gap-4 rounded-medium border-small border-divider">
-                        <Outlet />
-                    </div>
+            <div className="w-full flex-1 flex flex-col ">
+                <NavigationHeaderWithTabs />
+                <main className="bg-[#F2F4FA] flex-1 py-4 px-6">
+                    <Outlet />
                 </main>
             </div>
         </div>

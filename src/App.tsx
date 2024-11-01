@@ -6,8 +6,8 @@ import Register from "./pages/Register";
 import Workspace from "./pages/Workspace";
 import WorkspaceLayout from "./layouts/Workspace/App";
 import Reports from "./pages/Reports";
-import Settings from "./layouts/Settings";
-import Reminder from "./layouts/Reminder";
+import Settings from "./pages/Settings";
+import Reminder from "./pages/Reminder";
 
 function App() {
   return (

@@ -14,7 +14,7 @@ export const sectionItems: SidebarItem[] = [
         title: "Overview",
         items: [
             {
-                key: "/workspace",
+                key: "/workspace/dashboard",
                 icon: "mingcute:home-3-fill",
                 title: "Dashboard",
             },
