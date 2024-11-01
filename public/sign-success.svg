@@ -1,0 +1,108 @@
+<svg width="667" height="350" viewBox="0 0 667 350" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <g id="Group 1000004134">
+        <g id="fetti">
+            <g id="triagle/big">
+                <path id="Polygon 4" d="M480.502 131.516L450.152 185.359L471.88 193.383L480.502 131.516Z" fill="#EAD300"/>
+            </g>
+            <g id="triagle/small">
+                <g id="triagle/big_2">
+                    <path id="Polygon 4_2" d="M658.76 201.235L611.213 196.626L612.63 215.487L658.76 201.235Z" fill="#EA0000"/>
+                </g>
+            </g>
+            <g id="sircle/small">
+                <ellipse id="Ellipse 6" cx="4.98826" cy="5.22348" rx="4.98826" ry="5.22348" transform="matrix(-1 0 0 1 536.277 200.044)" fill="#9F00EA"/>
+            </g>
+            <g id="sircle/big">
+                <ellipse id="Ellipse 3" cx="11.6393" cy="12.1881" rx="11.6393" ry="12.1881" transform="matrix(-1 0 0 1 532.952 143.51)" fill="#EAA900"/>
+            </g>
+            <g id="square/big">
+                <rect id="squarefetti" width="34.0642" height="17.016" transform="matrix(-0.683203 -0.730228 -0.698003 0.716094 579.509 251.522)" fill="#EAA900"/>
+            </g>
+            <g id="squar/slim">
+                <rect id="squarefetti_2" width="41.413" height="13.4316" transform="matrix(0.433994 -0.900916 -0.88422 -0.46707 534.932 120.583)" fill="#EA0000"/>
+            </g>
+            <g id="loopie">
+                <path id="Vector 1" d="M665.973 163.177C665.973 163.177 644.709 152.087 639.885 157.9C637.235 161.093 635.233 164.961 637.607 168.104C639.436 170.526 642.078 170.835 645.173 170.266C651.727 169.06 651.628 159.53 648.997 153.627C645.364 145.477 626.082 150.288 626.082 150.288" stroke="#05EA00" stroke-width="1.2"/>
+            </g>
+            <g id="squiggly">
+                <path id="Vector 2" d="M592.538 227.588C592.538 227.588 594.157 217.518 589.511 215.511C585.608 213.825 582.224 221.282 579.017 218.578C575.769 215.84 583.878 211.502 581.237 208.226C578.458 204.779 569.532 208.226 569.532 208.226" stroke="#005EEA" stroke-width="1.2"/>
+            </g>
+            <g id="mooon/big">
+                <path id="Ellipse 2" d="M601.291 104.67C601.291 113.325 588.043 120.341 597.262 120.341C606.48 120.341 613.953 113.325 613.953 104.67C613.953 96.0159 606.48 89 597.262 89C588.043 89 601.291 96.0159 601.291 104.67Z" fill="#9F00EA"/>
+            </g>
+            <g id="star/small">
+                <path id="Star 2" d="M579.509 160.138L577.269 167.356H570.021L575.885 171.818L573.645 179.036L579.509 174.575L585.373 179.036L583.133 171.818L588.997 167.356H581.749L579.509 160.138Z" fill="#EAD300"/>
+            </g>
+            <g id="jaggedy">
+                <path id="Line 1" d="M487.482 119.259L485.826 104.302L474.281 111.966L472.965 99.418L462.434 107.014L459.155 93.4493" stroke="#005EEA"/>
+            </g>
+        </g>
+        <g id="squar/small">
+            <rect id="squarefetti_3" width="10.0438" height="17.3038" transform="matrix(-0.921029 0.389494 0.359829 0.933018 413.25 56)" fill="#EA0000"/>
+        </g>
+        <g id="fetti_2">
+            <g id="triagle/big_3">
+                <path id="Polygon 4_3" d="M218.466 145.898L272.783 175.39L258.638 193.732L218.466 145.898Z" fill="#EAD300"/>
+            </g>
+            <g id="triagle/small_2">
+                <g id="triagle/big_4">
+                    <path id="Polygon 4_4" d="M117.501 276.426L155.334 247.261L164.154 263.993L117.501 276.426Z" fill="#EA0000"/>
+                </g>
+            </g>
+            <g id="sircle/small_2">
+                <ellipse id="Ellipse 6_2" cx="216.453" cy="238.286" rx="4.98826" ry="5.22348" transform="rotate(-32.0913 216.453 238.286)" fill="#9F00EA"/>
+            </g>
+            <g id="sircle/big_2">
+                <ellipse id="Ellipse 3_2" cx="197.155" cy="188.732" rx="11.6393" ry="12.1881" transform="rotate(-32.0913 197.155 188.732)" fill="#EAA900"/>
+            </g>
+            <g id="square/big_2">
+                <rect id="squarefetti_4" width="34.0642" height="17.016" transform="matrix(-0.672272 -0.740304 0.770467 -0.63748 156.793 101.057)" fill="#EAA900"/>
+            </g>
+            <g id="squar/small_2">
+                <rect id="squarefetti_5" width="10.0438" height="17.3038" transform="matrix(0.987225 -0.159335 0.190837 0.981622 270.7 115.896)" fill="#EA0000"/>
+            </g>
+            <g id="squar/slim_2">
+                <rect id="squarefetti_6" width="41.413" height="13.4316" transform="matrix(-0.84631 -0.53269 0.500973 -0.865463 165.295 163.561)" fill="#EA0000"/>
+            </g>
+            <g id="loopie_2">
+                <path id="Vector 1_2" d="M78.4058 271.656C78.4058 271.656 90.5288 250.963 97.7038 253.325C101.646 254.623 105.396 256.837 105.055 260.76C104.792 263.784 102.718 265.449 99.7935 266.611C93.6005 269.072 88.6213 260.945 87.7143 254.546C86.4621 245.712 105.354 239.543 105.354 239.543" stroke="#05EA00" stroke-width="1.2"/>
+            </g>
+            <g id="squiggly_2">
+                <path id="Vector 2_2" d="M176.589 290.002C176.589 290.002 169.868 282.33 172.737 278.162C175.148 274.66 181.976 279.179 183.257 275.185C184.554 271.139 175.379 271.772 175.877 267.594C176.4 263.197 185.793 261.376 185.793 261.376" stroke="#005EEA" stroke-width="1.2"/>
+            </g>
+            <g id="mooon/big_2">
+                <path id="Ellipse 2_2" d="M99.8363 188.104C104.434 195.436 119.384 194.342 111.575 199.239C103.765 204.137 93.7068 202.163 89.1089 194.831C84.511 187.499 87.1147 177.585 94.9243 172.687C102.734 167.79 95.2384 180.772 99.8363 188.104Z" fill="#9F00EA"/>
+            </g>
+            <g id="star/small_2">
+                <path id="Star 2_2" d="M150.626 224.076L156.359 229.001L162.5 225.151L159.902 232.046L165.635 236.971L158.297 236.307L155.699 243.202L153.761 235.897L146.423 235.232L152.564 231.381L150.626 224.076Z" fill="#EAD300"/>
+            </g>
+            <g id="jaggedy_2">
+                <path id="Line 1_2" d="M205.125 137.762L198.581 124.211L212.434 124.57L206.883 113.241L219.84 114.082L215.412 100.847" stroke="#005EEA"/>
+            </g>
+        </g>
+        <path id="Star 1" d="M308.087 61.8333L317.641 70.0428L327.876 63.6247L323.546 75.1165L333.101 83.326L320.87 82.2189L316.541 93.7107L313.312 81.5346L301.081 80.4274L311.316 74.0094L308.087 61.8333Z" fill="#05EA00"/>
+        <path id="Star 2_3" d="M482.527 226.245L477.655 237.861L486.91 245.626L474.644 245.041L469.771 256.658L467.062 244.68L454.796 244.095L465.388 237.277L462.679 225.299L471.935 233.063L482.527 226.245Z" fill="#05EA00"/>
+        <path id="Ellipse 2_3" d="M264.236 74.2847C269.049 71.5975 268.371 61.3897 271.558 66.977C274.745 72.5643 273.427 79.2722 268.613 81.9595C263.8 84.6467 257.315 82.2958 254.128 76.7085C250.94 71.1212 259.422 76.972 264.236 74.2847Z" fill="#005EEA"/>
+        <g id="Interface / Check" filter="url(#filter0_d_99_22781)">
+            <rect x="289" y="121" width="139" height="139" rx="69.5" fill="url(#paint0_radial_99_22781)" shape-rendering="crispEdges"/>
+            <path id="Vector" d="M329.334 190.5L348.779 209.946L387.666 171.055" stroke="white" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+        </g>
+    </g>
+    <defs>
+        <filter id="filter0_d_99_22781" x="251" y="83" width="215" height="215" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+            <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+            <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+            <feMorphology radius="8" operator="dilate" in="SourceAlpha" result="effect1_dropShadow_99_22781"/>
+            <feOffset/>
+            <feGaussianBlur stdDeviation="15"/>
+            <feComposite in2="hardAlpha" operator="out"/>
+            <feColorMatrix type="matrix" values="0 0 0 0 0.699744 0 0 0 0 0.839136 0 0 0 0 0.925785 0 0 0 1 0"/>
+            <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_99_22781"/>
+            <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_99_22781" result="shape"/>
+        </filter>
+        <radialGradient id="paint0_radial_99_22781" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(358.5 190.5) rotate(90) scale(69.5)">
+            <stop stop-color="#C8FFE4" stop-opacity="0.5"/>
+            <stop offset="1" stop-color="#71DDC7"/>
+        </radialGradient>
+    </defs>
+</svg>
