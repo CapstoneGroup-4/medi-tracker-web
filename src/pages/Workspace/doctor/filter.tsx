@@ -7,8 +7,10 @@ import {
   SelectItem,
 } from "@nextui-org/react";
 import { FC } from "react";
-export interface FilterProps {}
-const Filter: FC<FilterProps> = () => {
+export interface FilterProps {
+  tab: "All Records" | "Recent Visits" | "Shared Records";
+}
+const Filter: FC<FilterProps> = ({ tab }) => {
   return (
     <div className="flex items-center justify-between w-full">
       <div className="flex items-center gap-2">
@@ -21,20 +23,24 @@ const Filter: FC<FilterProps> = () => {
           placeholder="Search by patient, NIK, etc"
         />
         <DatePicker className="min-w-[200px]" variant="bordered" />
-        <Select
-          className="min-w-[200px]"
-          placeholder="Select case type"
-          variant="bordered"
-        >
-          <SelectItem key="external" value="external">
-            External
-          </SelectItem>
-          <SelectItem key="internal" value="internal">
-            Internal
-          </SelectItem>
-        </Select>
+        {tab === "All Records" && (
+          <Select
+            className="min-w-[200px]"
+            placeholder="Select case type"
+            variant="bordered"
+          >
+            <SelectItem key="external" value="external">
+              External
+            </SelectItem>
+            <SelectItem key="internal" value="internal">
+              Internal
+            </SelectItem>
+          </Select>
+        )}
       </div>
-      <Button color="primary">Create New Record</Button>
+      {tab === "All Records" ? (
+        <Button color="primary">Create New Record</Button>
+      ) : null}
     </div>
   );
 };

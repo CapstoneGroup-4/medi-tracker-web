@@ -11,6 +11,7 @@ import { Space, Table } from "antd";
 import type { TableProps } from "antd";
 import { Icon } from "@iconify/react/dist/iconify.js";
 import Filter from "./filter";
+import { useNavigate } from "react-router-dom";
 
 interface DataType {
   key: string;
@@ -23,98 +24,6 @@ interface DataType {
   lastUpdated: string;
 }
 
-const columns: TableProps<DataType>["columns"] = [
-  {
-    title: "Record No",
-    dataIndex: "key",
-    key: "key",
-    ellipsis: true,
-    render: (text) => <a>{text}</a>,
-  },
-  {
-    title: "NIK",
-    dataIndex: "nik",
-    ellipsis: true,
-    key: "nik",
-  },
-  {
-    title: "Patient Name",
-    dataIndex: "patientName",
-    ellipsis: true,
-    key: "patientName",
-  },
-  {
-    title: "Diagnosis",
-    dataIndex: "diagnosis",
-    key: "diagnosis",
-  },
-  {
-    title: "Case Type",
-    dataIndex: "caseType",
-    align: "left",
-    key: "caseType",
-    render: (caseType) => (
-      <Button
-        variant="bordered"
-        size="sm"
-        color={caseType === "Internal" ? "primary" : "success"}
-      >
-        {caseType}
-      </Button>
-    ),
-  },
-  {
-    title: "Shared By",
-    dataIndex: "sharedBy",
-    key: "sharedBy",
-  },
-  {
-    title: "Shared Date",
-    dataIndex: "sharedDate",
-    key: "sharedDate",
-  },
-  {
-    title: "Last Updated",
-    dataIndex: "lastUpdated",
-    key: "lastUpdated",
-  },
-  {
-    title: "Action",
-    key: "action",
-    fixed: "right",
-    render: (_) => (
-      <div className="flex ">
-        <Button
-          size="sm"
-          variant="light"
-          color="primary"
-          isIconOnly
-          aria-label="View"
-        >
-          <Icon className="text-lg" icon="mingcute:eye-line" />
-        </Button>
-        <Button
-          size="sm"
-          variant="light"
-          color="primary"
-          isIconOnly
-          aria-label="Edit"
-        >
-          <Icon className="text-lg" icon="mingcute:download-line" />
-        </Button>
-        <Button
-          size="sm"
-          variant="light"
-          color="primary"
-          isIconOnly
-          aria-label="Delete"
-        >
-          <Icon className="text-lg" icon="mingcute:delete-2-line" />
-        </Button>
-      </div>
-    ),
-  },
-];
 const data: DataType[] = [];
 
 for (let i = 0; i < 30; i++) {
@@ -133,13 +42,109 @@ for (let i = 0; i < 30; i++) {
       .split("T")[0],
   });
 }
-export interface DoctorTableProps {}
-const DoctorTable: FC<DoctorTableProps> = () => {
+export interface DoctorTableProps {
+  tab: "All Records" | "Recent Visits" | "Shared Records";
+}
+const DoctorTable: FC<DoctorTableProps> = ({ tab }) => {
   const [currentPage, setCurrentPage] = useState(1);
+  const navigate = useNavigate();
+  const columns: TableProps<DataType>["columns"] = [
+    {
+      title: "Record No",
+      dataIndex: "key",
+      key: "key",
+      ellipsis: true,
+      render: (text) => <a>{text}</a>,
+    },
+    {
+      title: "NIK",
+      dataIndex: "nik",
+      ellipsis: true,
+      key: "nik",
+    },
+    {
+      title: "Patient Name",
+      dataIndex: "patientName",
+      ellipsis: true,
+      key: "patientName",
+    },
+    {
+      title: "Diagnosis",
+      dataIndex: "diagnosis",
+      key: "diagnosis",
+    },
+    {
+      title: "Case Type",
+      dataIndex: "caseType",
+      align: "left",
+      key: "caseType",
+      render: (caseType) => (
+        <Button
+          variant="bordered"
+          size="sm"
+          color={caseType === "Internal" ? "primary" : "success"}
+        >
+          {caseType}
+        </Button>
+      ),
+    },
+    {
+      title: "Shared By",
+      dataIndex: "sharedBy",
+      key: "sharedBy",
+    },
+    {
+      title: "Shared Date",
+      dataIndex: "sharedDate",
+      key: "sharedDate",
+    },
+    {
+      title: "Last Updated",
+      dataIndex: "lastUpdated",
+      key: "lastUpdated",
+    },
+    {
+      title: "Actions",
+      key: "action",
+      fixed: "right",
+      render: (_) => (
+        <div className="flex ">
+          <Button
+            size="sm"
+            variant="light"
+            color="primary"
+            isIconOnly
+            onClick={() => navigate("/workspace/reports/11")}
+            aria-label="View"
+          >
+            <Icon className="text-lg" icon="mingcute:eye-line" />
+          </Button>
+          <Button
+            size="sm"
+            variant="light"
+            color="primary"
+            isIconOnly
+            aria-label="Edit"
+          >
+            <Icon className="text-lg" icon="mingcute:download-line" />
+          </Button>
+          <Button
+            size="sm"
+            variant="light"
+            color="primary"
+            isIconOnly
+            aria-label="Delete"
+          >
+            <Icon className="text-lg" icon="mingcute:delete-2-line" />
+          </Button>
+        </div>
+      ),
+    },
+  ];
   return (
     <Card shadow="none" className="py-4">
       <CardHeader className="border-b mb-4 border-b-[#E7EBEA]">
-        <Filter />
+        <Filter tab={tab} />
       </CardHeader>
       <CardBody className="border-b border-b-[#E7EBEA]">
         <Table<DataType>
