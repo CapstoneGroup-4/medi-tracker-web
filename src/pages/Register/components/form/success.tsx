@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-export interface SuccessProps {}
+export interface SuccessProps { }
 const Success: FC<SuccessProps> = () => {
   return (
     <div className="flex flex-col items-center justify-center h-full">
