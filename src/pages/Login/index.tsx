@@ -4,7 +4,7 @@ import { useTitle } from "ahooks";
 import { Form } from "antd";
 import { FC } from "react";
 import LoginForm from "./components/form";
-export interface LoginProps { }
+export interface LoginProps {}
 const Login: FC<LoginProps> = () => {
   useTitle("Login | MediTracker");
   return (

@@ -4,10 +4,7 @@ import { to } from "await-to-js";
 import { FC, useEffect, useState } from "react";
 import ResgiterType from "./components/form/type";
 import { Button } from "@nextui-org/button";
-import PersonalForm, {
-  Region,
-  UserWithTerms,
-} from "./components/form/personal-form";
+import PersonalForm, { UserWithTerms } from "./components/form/personal-form";
 import { Link } from "@nextui-org/link";
 import Verify from "./components/form/email-verify";
 import Success from "./components/form/success";
@@ -17,7 +14,7 @@ import ProfessionalForm, {
 import { Progress } from "@nextui-org/react";
 import { Form, message } from "antd";
 import { AuthControllerService, VerificationControllerService } from "@/api";
-export interface LoginProps { }
+export interface LoginProps {}
 const Login: FC<LoginProps> = () => {
   useTitle("Register | MediTracker");
   const [type, setType] = useState<ResgiterType>("USER");
@@ -39,6 +36,8 @@ const Login: FC<LoginProps> = () => {
   const [code, setCode] = useState("");
   const [signUpId, setSignUpId] = useState<number>();
   const [sendingEmailLoading, setSendingEmailLoading] = useState(false);
+  const [messageApi, contextHolder] = message.useMessage();
+
   useEffect(() => {
     setUserSignUp({
       region: "canada",
@@ -94,19 +93,17 @@ const Login: FC<LoginProps> = () => {
     }
   };
   const registerProgress = progress();
-  const isNextUser =
-    steps === 2 &&
-    userSignUp?.password &&
-    userSignUp.email &&
-    userSignUp.gender &&
-    userSignUp.username;
   const onNext = async () => {
     try {
       setSendingEmailLoading(true);
+
       switch (steps) {
         case 2:
-          await personalForm.validateFields();
-
+          const [formErr] = await to(personalForm.validateFields());
+          if (formErr) {
+            messageApi.error("Please fill in all required fields");
+            return;
+          }
           const { confirmPassword, region, terms, ...requestBody } = userSignUp;
 
           const [signupUserError, signupUserRes] = await to(
@@ -121,8 +118,10 @@ const Login: FC<LoginProps> = () => {
             })
           );
 
-          if (signupUserRes && !signupUserError) {
-            message.success("Email sent successfully");
+          if (!signupUserError) {
+            if (type === "USER") {
+              messageApi.success("Email sent successfully");
+            }
             setSignUpId(signupUserRes.id);
             if (type === "USER") {
               setSteps(4);
@@ -134,11 +133,11 @@ const Login: FC<LoginProps> = () => {
 
         case 3:
           if (!signUpId) {
-            message.error("User ID is required");
+            messageApi.error("User ID is required");
             return;
           }
           if (!doctorSignup?.professionalId) {
-            message.error("Professional ID is required");
+            messageApi.error("Professional ID is required");
             return;
           }
           await professionalForm.validateFields();
@@ -153,8 +152,8 @@ const Login: FC<LoginProps> = () => {
               requestBody: doctorRequestBody,
             })
           );
-          if (doctorRes && !_doctorError) {
-            message.success(
+          if (!_doctorError) {
+            messageApi.success(
               "Doctor registered successfully, email has been sent"
             );
             setSteps(steps + 1);
@@ -170,8 +169,10 @@ const Login: FC<LoginProps> = () => {
           );
 
           if (!err) {
-            message.success("Email verified successfully");
+            messageApi.success("Email verified successfully");
             setSteps(steps + 1);
+          } else {
+            messageApi.error("Invalid code");
           }
           break;
 
@@ -180,13 +181,39 @@ const Login: FC<LoginProps> = () => {
           break;
       }
     } catch (err) {
-      message.error(err as string);
+      messageApi.error(err as string);
     } finally {
       setSendingEmailLoading(false);
     }
   };
+  useEffect(() => {
+    const searchParams = new URLSearchParams(window.location.search);
+    const type = searchParams.get("type");
+    const step = searchParams.get("step");
+
+    // Update state from URL params
+    if (type) {
+      setType(type as "USER" | "DOCTOR");
+    }
+    if (step) {
+      setSteps(Number(step));
+    }
+  }, []);
+  useEffect(() => {
+    setTimeout(() => {
+      const newParams = new URLSearchParams();
+      if (type) newParams.set("type", type);
+      if (steps) newParams.set("step", String(steps));
+      window.history.replaceState(
+        {},
+        "",
+        `${window.location.pathname}?${newParams}`
+      );
+    }, 0);
+  }, [steps, type]);
   return (
     <DefaultLayout>
+      {contextHolder}
       <div
         className="flex flex-col justify-center items-center h-full "
         style={{

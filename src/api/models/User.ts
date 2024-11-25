@@ -23,7 +23,10 @@ export type SignInResponse = {
   id: number;
   username: string;
   email: string;
-  roles: Array<string>;
+  roles: Array<{
+    id: number;
+    role: "DOCTOR" | "USER" | "ADMIN";
+  }>;
   tokenType: string;
   accessToken: string;
 };

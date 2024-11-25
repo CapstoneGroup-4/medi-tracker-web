@@ -71,8 +71,12 @@ const PersonalForm: FC<PersonalFormProps> = ({
           rules={[
             { required: true, message: "Please input your SIN" },
             {
-              max: 9,
+              min: 9,
               message: "SIN must be 9 digits",
+            },
+            {
+              max: 20,
+              message: "SIN cannot be longer than 20 digits",
             },
           ]}
           className="col-span-12 md:col-span-6"
@@ -121,6 +125,10 @@ const PersonalForm: FC<PersonalFormProps> = ({
               max: 14,
               message: "Phone number cannot be longer than 14 digits",
             },
+            {
+              required: true,
+              message: "Please input your phone number",
+            },
           ]}
           className="col-span-12 md:col-span-6"
         >
@@ -129,6 +137,7 @@ const PersonalForm: FC<PersonalFormProps> = ({
             label="Phone"
             aria-label="phone"
             name="phone"
+            isRequired
             autoComplete="tel"
             startContent={
               <div className="relative">

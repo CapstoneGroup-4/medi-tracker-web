@@ -21,7 +21,7 @@ export class AuthControllerService {
   }): CancelablePromise<Record<string, any>> {
     return __request(OpenAPI, {
       method: "POST",
-      url: "/auth/signup",
+      url: "/api/auth/signup",
       body: requestBody,
       mediaType: "application/json",
     });
@@ -37,7 +37,7 @@ export class AuthControllerService {
   }): CancelablePromise<SignInResponse> {
     return __request(OpenAPI, {
       method: "POST",
-      url: "/auth/signin",
+      url: "/api/auth/signin",
       body: requestBody,
       mediaType: "application/json",
     });
@@ -53,7 +53,7 @@ export class AuthControllerService {
   }): CancelablePromise<Record<string, any>> {
     return __request(OpenAPI, {
       method: "POST",
-      url: "/auth/doctor-signup",
+      url: "/api/auth/doctor-signup",
       body: requestBody,
       mediaType: "application/json",
     });
@@ -69,7 +69,7 @@ export class AuthControllerService {
   }): CancelablePromise<Record<string, any>> {
     return __request(OpenAPI, {
       method: "GET",
-      url: "/auth/isactive/{email}",
+      url: "/api/auth/isactive/{email}",
       path: {
         email: email,
       },

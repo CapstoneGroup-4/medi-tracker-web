@@ -19,7 +19,7 @@ export class VerificationControllerService {
   }): CancelablePromise<Record<string, any>> {
     return __request(OpenAPI, {
       method: "POST",
-      url: "/verification/verify-code",
+      url: "/api/verification/verify-code",
       query: {
         email: email,
         code: code,
@@ -37,7 +37,7 @@ export class VerificationControllerService {
   }): CancelablePromise<Record<string, any>> {
     return __request(OpenAPI, {
       method: "POST",
-      url: "/verification/send-code",
+      url: "/api/verification/send-code",
       query: {
         email: email,
       },

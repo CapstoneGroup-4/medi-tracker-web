@@ -2,14 +2,16 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import type { MedicalRecord } from "../models/MedicalRecord";
-import type { PageMedicalRecord } from "../models/PageMedicalRecord";
+import type { MedicalRecordRequest } from "../models/MedicalRecordRequest";
+import type { MedicalRecordUpdateRequest } from "../models/MedicalRecordUpdateRequest";
 import type { CancelablePromise } from "../core/CancelablePromise";
 import { OpenAPI } from "../core/OpenAPI";
 import { request as __request } from "../core/request";
+import { MedicalRecord } from "../models/MedicalRecord";
+import { Attachment } from "../models/Attachment";
 export class MedicalRecordControllerService {
   /**
-   * @returns MedicalRecord OK
+   * @returns any OK
    * @throws ApiError
    */
   public static updateRecord({
@@ -17,11 +19,11 @@ export class MedicalRecordControllerService {
     requestBody,
   }: {
     id: number;
-    requestBody: MedicalRecord;
-  }): CancelablePromise<MedicalRecord> {
+    requestBody: MedicalRecordUpdateRequest;
+  }): CancelablePromise<Record<string, any>> {
     return __request(OpenAPI, {
       method: "PUT",
-      url: '"medical-records/update/{id}',
+      url: "/api/medical-records/update/{id}",
       path: {
         id: id,
       },
@@ -44,7 +46,7 @@ export class MedicalRecordControllerService {
   }): CancelablePromise<Record<string, any>> {
     return __request(OpenAPI, {
       method: "POST",
-      url: '"medical-records/{recordId}/upload',
+      url: "/api/medical-records/{recordId}/upload",
       path: {
         recordId: recordId,
       },
@@ -53,13 +55,25 @@ export class MedicalRecordControllerService {
     });
   }
   /**
-   * @returns string OK
+   * @returns any OK
    * @throws ApiError
    */
-  public static initializeLedger(): CancelablePromise<string> {
+  public static shareMedicalRecord({
+    recordId,
+    doctorId,
+  }: {
+    recordId: number;
+    doctorId: number;
+  }): CancelablePromise<Record<string, any>> {
     return __request(OpenAPI, {
       method: "POST",
-      url: '"medical-records/initialize',
+      url: "/api/medical-records/{recordId}/share",
+      path: {
+        recordId: recordId,
+      },
+      query: {
+        doctorId: doctorId,
+      },
     });
   }
   /**
@@ -67,23 +81,32 @@ export class MedicalRecordControllerService {
    * @throws ApiError
    */
   public static createRecord({
-    patientId,
-    doctorId,
     requestBody,
   }: {
-    patientId: number;
-    doctorId: number;
-    requestBody: MedicalRecord;
+    requestBody: MedicalRecordRequest;
   }): CancelablePromise<Record<string, any>> {
     return __request(OpenAPI, {
       method: "POST",
-      url: '"medical-records/create',
-      query: {
-        patientId: patientId,
-        doctorId: doctorId,
-      },
+      url: "/api/medical-records/create",
       body: requestBody,
       mediaType: "application/json",
+    });
+  }
+  /**
+   * @returns any OK
+   * @throws ApiError
+   */
+  public static getDoctorsWithAccess({
+    recordId,
+  }: {
+    recordId: number;
+  }): CancelablePromise<Record<string, any>> {
+    return __request(OpenAPI, {
+      method: "GET",
+      url: "/api/medical-records/{recordId}/shared-doctors",
+      path: {
+        recordId: recordId,
+      },
     });
   }
   /**
@@ -96,10 +119,10 @@ export class MedicalRecordControllerService {
   }: {
     recordId: number;
     fileId: number;
-  }): CancelablePromise<string> {
+  }): CancelablePromise<any> {
     return __request(OpenAPI, {
       method: "GET",
-      url: '"medical-records/{recordId}/download/{fileId}',
+      url: "/api/medical-records/{recordId}/download/{fileId}",
       path: {
         recordId: recordId,
         fileId: fileId,
@@ -107,7 +130,24 @@ export class MedicalRecordControllerService {
     });
   }
   /**
-   * @returns MedicalRecord OK
+   * @returns any OK
+   * @throws ApiError
+   */
+  public static getAttachmentsByRecordId({
+    recordId,
+  }: {
+    recordId: number;
+  }): CancelablePromise<Attachment[]> {
+    return __request(OpenAPI, {
+      method: "GET",
+      url: "/api/medical-records/{recordId}/attachments",
+      path: {
+        recordId: recordId,
+      },
+    });
+  }
+  /**
+   * @returns any OK
    * @throws ApiError
    */
   public static getRecordById({
@@ -117,14 +157,14 @@ export class MedicalRecordControllerService {
   }): CancelablePromise<MedicalRecord> {
     return __request(OpenAPI, {
       method: "GET",
-      url: '"medical-records/{id}',
+      url: "/api/medical-records/{id}",
       path: {
         id: id,
       },
     });
   }
   /**
-   * @returns PageMedicalRecord OK
+   * @returns any OK
    * @throws ApiError
    */
   public static getAllRecords({
@@ -137,10 +177,10 @@ export class MedicalRecordControllerService {
     size?: number;
     sortBy?: string;
     sortDir?: string;
-  }): CancelablePromise<PageMedicalRecord> {
+  }): CancelablePromise<Record<string, any>> {
     return __request(OpenAPI, {
       method: "GET",
-      url: '"medical-records/all',
+      url: "/api/medical-records/all",
       query: {
         page: page,
         size: size,
@@ -150,17 +190,39 @@ export class MedicalRecordControllerService {
     });
   }
   /**
-   * @returns string OK
+   * @returns any OK
+   * @throws ApiError
+   */
+  public static revokeAccess({
+    recordId,
+    doctorId,
+  }: {
+    recordId: number;
+    doctorId: number;
+  }): CancelablePromise<Record<string, any>> {
+    return __request(OpenAPI, {
+      method: "DELETE",
+      url: "/api/medical-records/{recordId}/revoke-access",
+      path: {
+        recordId: recordId,
+      },
+      query: {
+        doctorId: doctorId,
+      },
+    });
+  }
+  /**
+   * @returns any OK
    * @throws ApiError
    */
   public static deleteRecord({
     id,
   }: {
     id: number;
-  }): CancelablePromise<string> {
+  }): CancelablePromise<Record<string, any>> {
     return __request(OpenAPI, {
       method: "DELETE",
-      url: '"medical-records/delete/{id}',
+      url: "/api/medical-records/delete/{id}",
       path: {
         id: id,
       },

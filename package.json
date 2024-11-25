@@ -23,6 +23,7 @@
     "@nextui-org/system": "^2.2.6",
     "@nextui-org/theme": "2.2.11",
     "@react-aria/visually-hidden": "3.8.12",
+    "@tanstack/react-query": "^5.60.5",
     "ahooks": "^3.8.1",
     "antd": "^5.21.2",
     "await-to-js": "^3.0.0",

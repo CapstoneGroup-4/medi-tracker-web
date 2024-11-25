@@ -2,13 +2,13 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import type { MedicalRecord } from './MedicalRecord';
+import type { MedicalRecord } from "./MedicalRecord";
 export type Attachment = {
-    fileId?: number;
-    fileName?: string;
-    fileType?: string;
-    fileData?: string;
-    uploadDate?: string;
-    medicalRecord?: MedicalRecord;
+  attachmentId: number;
+  attachmentName?: string;
+  ipfsHash?: string;
+  recordId?: number;
+  recordNo?: string;
+  uploadDate?: string;
+  medicalRecord?: MedicalRecord;
 };
-

@@ -1,28 +1,56 @@
-import { FC } from "react";
-import CommonReportItem, {
-  CommonReportItemType,
-} from "./components/common-reports-item";
+import { FC, useState } from "react";
+import { Attachment } from "@/api";
+import CommonReportItem from "./components/common-reports-item";
+import axios from "axios";
+import { message } from "antd";
+import { useQueryClient } from "@tanstack/react-query";
+import { useParams } from "react-router-dom";
+
 export interface ReportGridProps {
   isEdit?: boolean;
+  data?: Attachment[];
 }
-const ReportGrid: FC<ReportGridProps> = ({ isEdit = false }) => {
-  const generateLabReports = (): CommonReportItemType[] => {
-    const reports: CommonReportItemType[] = [];
-    for (let i = 1; i <= 30; i++) {
-      reports.push({
-        id: `lab-report-${i}`,
-        name: `Lab Report ${i}`,
-        url: `https://example.com/lab-report-${i}`,
-      });
+
+const ReportGrid: FC<ReportGridProps> = ({ isEdit = false, data }) => {
+  const [progress, setProgress] = useState(0);
+  const queryClient = useQueryClient();
+  const { id } = useParams();
+  const onFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      const formData = new FormData();
+      formData.append("file", file);
+
+      try {
+        const response = await axios.post(
+          `/api/medical-records/${id}/upload`,
+          formData,
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+            onUploadProgress: (progressEvent) => {
+              const percentCompleted = Math.round(
+                (progressEvent.loaded * 100) / (progressEvent.total || 1)
+              );
+              setProgress(percentCompleted);
+            },
+          }
+        );
+        message.success("Upload successful");
+        queryClient.setQueryData(
+          ["medical-record", "report", id],
+          (prev: any) => {
+            return [...prev, response.data?.data];
+          }
+        );
+        setProgress(0);
+      } catch (error) {
+        message.error("Upload failed");
+      }
     }
-    return reports;
   };
 
-  const labReports = generateLabReports();
-
-  const handleReportClick = (item: CommonReportItemType) => {
-    // Add your logic here for handling the click event
-  };
   return (
     <div className="grid grid-cols-6 gap-4 3xl:grid-cols-10">
       {isEdit ? (
@@ -32,21 +60,30 @@ const ReportGrid: FC<ReportGridProps> = ({ isEdit = false }) => {
             className="flex flex-col items-center justify-center cursor-pointer "
           >
             <div className=" border-primary text-sm text-primary flex bg-white items-center justify-center mb-4  border-[1px] h-8 w-[118px] rounded-lg">
-              Upload
+              {progress !== 0 ? `${progress}%` : "Upload"}
             </div>
-            <p className="text-xs  text-gray-500 dark:text-gray-400 text-center">
-              Supported formats: JPG, JPEG, PNG, PDF.
-            </p>
+            {progress !== 0 ? null : (
+              <p className="text-xs  text-gray-500 dark:text-gray-400 text-center">
+                Supported formats: JPG, JPEG, PNG, PDF.
+              </p>
+            )}
           </label>
-          <input id="dropzone-file" type="file" className="hidden" />
+          <input
+            id="dropzone-file"
+            type="file"
+            disabled={progress !== 0}
+            className="hidden"
+            onChange={onFileChange}
+            accept=".jpg,.jpeg,.png,.pdf"
+          />
         </div>
       ) : null}
-      {labReports.map((report) => (
+      {data?.map((report) => (
         <CommonReportItem
-          key={report.id}
+          key={report.attachmentId}
           item={report}
           isEdit={isEdit}
-          onClick={handleReportClick}
+          onClick={() => {}}
         />
       ))}
     </div>

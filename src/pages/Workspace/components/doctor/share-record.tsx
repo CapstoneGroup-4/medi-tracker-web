@@ -1,3 +1,4 @@
+export interface ShareRecordProps {}
 import {
   Button,
   Card,
@@ -20,7 +21,9 @@ interface DataType {
   nik: string;
   caseType: string;
   sharedBy: string;
+  sharedCount: number;
   sharedDate: string;
+  lastShared: string;
   lastUpdated: string;
 }
 
@@ -33,8 +36,12 @@ for (let i = 0; i < 30; i++) {
     nik: `NIK ${i + 1}`,
     diagnosis: `Diagnosis ${i + 1}`,
     caseType: i % 2 === 0 ? "Internal" : "External",
+    sharedCount: Math.floor(Math.random() * 10) + 1,
     sharedBy: `Doctor ${Math.floor(Math.random() * 10) + 1}`,
     sharedDate: new Date(Date.now() - Math.floor(Math.random() * 10000000000))
+      .toISOString()
+      .split("T")[0],
+    lastShared: new Date(Date.now() - Math.floor(Math.random() * 1000000000))
       .toISOString()
       .split("T")[0],
     lastUpdated: new Date(Date.now() - Math.floor(Math.random() * 1000000000))
@@ -42,10 +49,7 @@ for (let i = 0; i < 30; i++) {
       .split("T")[0],
   });
 }
-export interface DoctorTableProps {
-  tab: "All Records" | "Recent Visits" | "Shared Records";
-}
-const DoctorTable: FC<DoctorTableProps> = ({ tab }) => {
+const ShareRecord: FC<ShareRecordProps> = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const navigate = useNavigate();
   const columns: TableProps<DataType>["columns"] = [
@@ -89,19 +93,14 @@ const DoctorTable: FC<DoctorTableProps> = ({ tab }) => {
       ),
     },
     {
-      title: "Shared By",
-      dataIndex: "sharedBy",
-      key: "sharedBy",
+      title: "Shared Count",
+      dataIndex: "sharedCount",
+      key: "sharedCount",
     },
     {
-      title: "Shared Date",
-      dataIndex: "sharedDate",
-      key: "sharedDate",
-    },
-    {
-      title: "Last Updated",
-      dataIndex: "lastUpdated",
-      key: "lastUpdated",
+      title: "Last Shared",
+      dataIndex: "lastShared",
+      key: "lastShared",
     },
     {
       title: "Actions",
@@ -114,7 +113,7 @@ const DoctorTable: FC<DoctorTableProps> = ({ tab }) => {
             variant="light"
             color="primary"
             isIconOnly
-            onClick={() => navigate("/workspace/reports/11")}
+            onClick={() => navigate("/workspace/reports")}
             aria-label="View"
           >
             <Icon className="text-lg" icon="mingcute:eye-line" />
@@ -128,15 +127,6 @@ const DoctorTable: FC<DoctorTableProps> = ({ tab }) => {
           >
             <Icon className="text-lg" icon="mingcute:download-line" />
           </Button>
-          <Button
-            size="sm"
-            variant="light"
-            color="primary"
-            isIconOnly
-            aria-label="Delete"
-          >
-            <Icon className="text-lg" icon="mingcute:delete-2-line" />
-          </Button>
         </div>
       ),
     },
@@ -144,7 +134,7 @@ const DoctorTable: FC<DoctorTableProps> = ({ tab }) => {
   return (
     <Card shadow="none" className="py-4">
       <CardHeader className="border-b mb-4 border-b-[#E7EBEA]">
-        <Filter tab={tab} />
+        <Filter />
       </CardHeader>
       <CardBody className="border-b border-b-[#E7EBEA]">
         <Table<DataType>
@@ -194,4 +184,4 @@ const DoctorTable: FC<DoctorTableProps> = ({ tab }) => {
   );
 };
 
-export default DoctorTable;
+export default ShareRecord;
