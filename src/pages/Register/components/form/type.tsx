@@ -1,8 +1,8 @@
 import { OnlineAppointmentIcon } from "@/assets";
 import { Card, CardBody, cn } from "@nextui-org/react";
 import { FC } from "react";
-import { RegisterIcon } from "../icon";
-type ResgiterType = "personal" | "healthcare";
+import { RegisterIcon } from "../../icon";
+type ResgiterType = "USER" | "DOCTOR";
 export interface ResgiterTypeProps {
   type: ResgiterType;
   onChange: (type: ResgiterType) => void;
@@ -45,14 +45,14 @@ const ResgiterType: FC<ResgiterTypeProps> = ({ type, onChange }) => {
       icon: <RegisterIcon />,
       title: "Personal account",
       description: "If you are registering for personal use",
-      key: "personal",
+      key: "USER",
     },
     {
       icon: <OnlineAppointmentIcon />,
       title: "Healthcare Professional account",
       description:
         "If you are a doctor, nurse, or healthcare provider responsible for patient care",
-      key: "healthcare",
+      key: "DOCTOR",
     },
   ];
 

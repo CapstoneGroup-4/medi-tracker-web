@@ -1,20 +1,32 @@
-import React, { FC, useState, useRef, KeyboardEvent, ChangeEvent } from "react";
+import React, {
+  FC,
+  useState,
+  useRef,
+  KeyboardEvent,
+  ChangeEvent,
+  useEffect,
+} from "react";
 import { Input, Link } from "@nextui-org/react";
 
-export interface VerifyProps {}
+export interface VerifyProps {
+  code: string;
+  onChange: (value: string) => void;
+}
 
-const Verify: FC<VerifyProps> = () => {
+const Verify: FC<VerifyProps> = ({ code, onChange }) => {
   const [verificationCode, setVerificationCode] = useState<string[]>(
     Array(6).fill("")
   );
   const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
+  useEffect(() => {
+    onChange(verificationCode.join(""));
+  }, [verificationCode]);
 
   const handleChange = (index: number, value: string) => {
     if (value.length <= 1) {
       const newVerificationCode = [...verificationCode];
       newVerificationCode[index] = value;
       setVerificationCode(newVerificationCode);
-
       // 自动聚焦到下一个输入框
       if (value !== "" && index < 5) {
         inputRefs.current[index + 1]?.focus();

@@ -1,3 +1,4 @@
+export interface ShareRecordProps {}
 import {
   Button,
   Card,
@@ -11,6 +12,7 @@ import { Space, Table } from "antd";
 import type { TableProps } from "antd";
 import { Icon } from "@iconify/react/dist/iconify.js";
 import Filter from "./filter";
+import { useNavigate } from "react-router-dom";
 
 interface DataType {
   key: string;
@@ -19,102 +21,12 @@ interface DataType {
   nik: string;
   caseType: string;
   sharedBy: string;
+  sharedCount: number;
   sharedDate: string;
+  lastShared: string;
   lastUpdated: string;
 }
 
-const columns: TableProps<DataType>["columns"] = [
-  {
-    title: "Record No",
-    dataIndex: "key",
-    key: "key",
-    ellipsis: true,
-    render: (text) => <a>{text}</a>,
-  },
-  {
-    title: "NIK",
-    dataIndex: "nik",
-    ellipsis: true,
-    key: "nik",
-  },
-  {
-    title: "Patient Name",
-    dataIndex: "patientName",
-    ellipsis: true,
-    key: "patientName",
-  },
-  {
-    title: "Diagnosis",
-    dataIndex: "diagnosis",
-    key: "diagnosis",
-  },
-  {
-    title: "Case Type",
-    dataIndex: "caseType",
-    align: "left",
-    key: "caseType",
-    render: (caseType) => (
-      <Button
-        variant="bordered"
-        size="sm"
-        color={caseType === "Internal" ? "primary" : "success"}
-      >
-        {caseType}
-      </Button>
-    ),
-  },
-  {
-    title: "Shared By",
-    dataIndex: "sharedBy",
-    key: "sharedBy",
-  },
-  {
-    title: "Shared Date",
-    dataIndex: "sharedDate",
-    key: "sharedDate",
-  },
-  {
-    title: "Last Updated",
-    dataIndex: "lastUpdated",
-    key: "lastUpdated",
-  },
-  {
-    title: "Action",
-    key: "action",
-    fixed: "right",
-    render: (_) => (
-      <div className="flex ">
-        <Button
-          size="sm"
-          variant="light"
-          color="primary"
-          isIconOnly
-          aria-label="View"
-        >
-          <Icon className="text-lg" icon="mingcute:eye-line" />
-        </Button>
-        <Button
-          size="sm"
-          variant="light"
-          color="primary"
-          isIconOnly
-          aria-label="Edit"
-        >
-          <Icon className="text-lg" icon="mingcute:download-line" />
-        </Button>
-        <Button
-          size="sm"
-          variant="light"
-          color="primary"
-          isIconOnly
-          aria-label="Delete"
-        >
-          <Icon className="text-lg" icon="mingcute:delete-2-line" />
-        </Button>
-      </div>
-    ),
-  },
-];
 const data: DataType[] = [];
 
 for (let i = 0; i < 30; i++) {
@@ -124,8 +36,12 @@ for (let i = 0; i < 30; i++) {
     nik: `NIK ${i + 1}`,
     diagnosis: `Diagnosis ${i + 1}`,
     caseType: i % 2 === 0 ? "Internal" : "External",
+    sharedCount: Math.floor(Math.random() * 10) + 1,
     sharedBy: `Doctor ${Math.floor(Math.random() * 10) + 1}`,
     sharedDate: new Date(Date.now() - Math.floor(Math.random() * 10000000000))
+      .toISOString()
+      .split("T")[0],
+    lastShared: new Date(Date.now() - Math.floor(Math.random() * 1000000000))
       .toISOString()
       .split("T")[0],
     lastUpdated: new Date(Date.now() - Math.floor(Math.random() * 1000000000))
@@ -133,9 +49,88 @@ for (let i = 0; i < 30; i++) {
       .split("T")[0],
   });
 }
-export interface DoctorTableProps {}
-const DoctorTable: FC<DoctorTableProps> = () => {
+const ShareRecord: FC<ShareRecordProps> = () => {
   const [currentPage, setCurrentPage] = useState(1);
+  const navigate = useNavigate();
+  const columns: TableProps<DataType>["columns"] = [
+    {
+      title: "Record No",
+      dataIndex: "key",
+      key: "key",
+      ellipsis: true,
+      render: (text) => <a>{text}</a>,
+    },
+    {
+      title: "NIK",
+      dataIndex: "nik",
+      ellipsis: true,
+      key: "nik",
+    },
+    {
+      title: "Patient Name",
+      dataIndex: "patientName",
+      ellipsis: true,
+      key: "patientName",
+    },
+    {
+      title: "Diagnosis",
+      dataIndex: "diagnosis",
+      key: "diagnosis",
+    },
+    {
+      title: "Case Type",
+      dataIndex: "caseType",
+      align: "left",
+      key: "caseType",
+      render: (caseType) => (
+        <Button
+          variant="bordered"
+          size="sm"
+          color={caseType === "Internal" ? "primary" : "success"}
+        >
+          {caseType}
+        </Button>
+      ),
+    },
+    {
+      title: "Shared Count",
+      dataIndex: "sharedCount",
+      key: "sharedCount",
+    },
+    {
+      title: "Last Shared",
+      dataIndex: "lastShared",
+      key: "lastShared",
+    },
+    {
+      title: "Actions",
+      key: "action",
+      fixed: "right",
+      render: (_) => (
+        <div className="flex ">
+          <Button
+            size="sm"
+            variant="light"
+            color="primary"
+            isIconOnly
+            onClick={() => navigate("/workspace/reports")}
+            aria-label="View"
+          >
+            <Icon className="text-lg" icon="mingcute:eye-line" />
+          </Button>
+          <Button
+            size="sm"
+            variant="light"
+            color="primary"
+            isIconOnly
+            aria-label="Edit"
+          >
+            <Icon className="text-lg" icon="mingcute:download-line" />
+          </Button>
+        </div>
+      ),
+    },
+  ];
   return (
     <Card shadow="none" className="py-4">
       <CardHeader className="border-b mb-4 border-b-[#E7EBEA]">
@@ -189,4 +184,4 @@ const DoctorTable: FC<DoctorTableProps> = () => {
   );
 };
 
-export default DoctorTable;
+export default ShareRecord;

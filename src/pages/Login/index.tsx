@@ -1,7 +1,9 @@
 import DefaultLayout from "@/layouts/default";
+import { Card, CardBody, Input } from "@nextui-org/react";
 import { useTitle } from "ahooks";
+import { Form } from "antd";
 import { FC } from "react";
-import LoginForm from "./components/login-form";
+import LoginForm from "./components/form";
 export interface LoginProps {}
 const Login: FC<LoginProps> = () => {
   useTitle("Login | MediTracker");

@@ -1,11 +1,19 @@
-import { Tabs, Tab, Card, CardHeader, CardBody } from "@nextui-org/react";
+import { Tabs, Tab } from "@nextui-org/react";
 import "./index.css";
-import { FC } from "react";
-import DoctorTable from "./doctor/doctor-table";
-import { ConfigProvider } from "antd";
+import { FC, useState } from "react";
+import ShareRecord from "./components/doctor/share-record";
+import AllRecord from "./components/doctor/all-record";
+import { useIsDoctor } from "@/hooks/user";
 export interface WorkspaceProps {}
 const Workspace: FC<WorkspaceProps> = () => {
-  const tabs = ["All Records", "Recent Visits", "Shared Records"];
+  const isDoctor = useIsDoctor();
+  let tabs = ["All Records", "Recent Visits", "Shared Records"];
+  if (!isDoctor) {
+    tabs = ["All Records", "Recent Visits"];
+  }
+  const [tab, setTab] = useState<
+    "All Records" | "Recent Visits" | "Shared Records"
+  >("All Records");
   return (
     <main className="overflow-hidden">
       <Tabs
@@ -13,6 +21,8 @@ const Workspace: FC<WorkspaceProps> = () => {
           tabList: "pb-0",
         }}
         color="secondary"
+        selectedKey={tab}
+        onSelectionChange={(key) => setTab(key as any)}
         variant="underlined"
         aria-label="Tabs variants"
       >
@@ -20,21 +30,9 @@ const Workspace: FC<WorkspaceProps> = () => {
           <Tab key={tab} title={tab} />
         ))}
       </Tabs>
-      <ConfigProvider
-        theme={{
-          components: {
-            Table: {
-              headerBg: "#F4F4F5",
-              headerSplitColor: "transparent",
-              headerColor:
-                "hsl(var(--nextui-foreground-500) / var(--nextui-foreground-500-opacity, var(--tw-text-opacity)))",
-              borderColor: "transparent",
-            },
-          },
-        }}
-      >
-        <DoctorTable />
-      </ConfigProvider>
+      {tab === "All Records" && <AllRecord tab={tab} />}
+      {tab === "Recent Visits" && null}
+      {tab === "Shared Records" && <ShareRecord tab={tab} />}
     </main>
   );
 };

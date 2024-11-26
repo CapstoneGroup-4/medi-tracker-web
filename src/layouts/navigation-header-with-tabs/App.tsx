@@ -2,12 +2,10 @@
 
 import {
   Navbar,
-  NavbarBrand,
   NavbarContent,
   NavbarItem,
   NavbarMenu,
   NavbarMenuItem,
-  NavbarMenuToggle,
   Link,
   Button,
   Dropdown,
@@ -29,6 +27,11 @@ import NotificationsCard from "./notifications-card";
 import { MoonIcon } from "./icon";
 import { SunIcon } from "./icon";
 import { usePathname } from "@/hooks/route";
+import { useAtomValue } from "jotai";
+import { GlobalUserAtom } from "@/global";
+import { useNavigate, useParams, useSearchParams } from "react-router-dom";
+import { message } from "antd";
+import { OpenAPI } from "@/api";
 
 const namePath = [
   {
@@ -36,13 +39,25 @@ const namePath = [
     path: "/workspace/dashboard",
   },
   {
-    name: ["Reports", "11"],
-    path: "/workspace/reports/11",
+    name: ["Reports"],
+    keyPath: ["reports"],
+    path: "/workspace/reports",
   },
 ];
 export default function NavigationHeaderWithTabs() {
   const pathname = usePathname();
-  const path = namePath.find((item) => item.path === pathname)?.name;
+  const { id } = useParams();
+  const [searchParams] = useSearchParams();
+  const name = searchParams.get("name");
+  let path = namePath.find(
+    (item) => (id ? `${item.path}/${id}` : item.path) === pathname
+  );
+  if (name && path) {
+    path = { ...path, name: [...path.name, name] };
+  }
+
+  const user = useAtomValue(GlobalUserAtom);
+  const navigate = useNavigate();
   return (
     <div className="w-full">
       <Navbar
@@ -54,9 +69,14 @@ export default function NavigationHeaderWithTabs() {
         height="60px"
       >
         <Breadcrumbs className="hidden lg:flex" radius="full">
-          {path?.map((item, index) => (
-            <BreadcrumbItem key={index}>{item}</BreadcrumbItem>
-          ))}
+          {path?.name?.map((item, index) => {
+            const key = path?.keyPath?.[index];
+            return (
+              <BreadcrumbItem href={`/workspace/${key}`} key={index}>
+                {item}
+              </BreadcrumbItem>
+            );
+          })}
         </Breadcrumbs>
 
         {/* Right Menu */}
@@ -114,8 +134,8 @@ export default function NavigationHeaderWithTabs() {
               <DropdownTrigger>
                 <button className="  outline-none transition-transform">
                   <User
-                    name="John Doe"
-                    description="StaffNo: 1234567890"
+                    name={user?.username}
+                    description={`${user?.email}`}
                     classNames={{
                       base: "flex-row-reverse",
                       wrapper: "items-end",
@@ -131,15 +151,17 @@ export default function NavigationHeaderWithTabs() {
                   <p className="font-semibold">Signed in as</p>
                   <p className="font-semibold">johndoe@example.com</p>
                 </DropdownItem>
-                <DropdownItem key="settings">My Settings</DropdownItem>
-                <DropdownItem key="team_settings">Team Settings</DropdownItem>
-                <DropdownItem key="analytics">Analytics</DropdownItem>
-                <DropdownItem key="system">System</DropdownItem>
-                <DropdownItem key="configurations">Configurations</DropdownItem>
-                <DropdownItem key="help_and_feedback">
-                  Help & Feedback
-                </DropdownItem>
-                <DropdownItem key="logout" color="danger">
+                <DropdownItem
+                  onClick={() => {
+                    localStorage.removeItem("user");
+                    localStorage.removeItem("token");
+                    navigate("/login");
+                    OpenAPI.TOKEN = "";
+                    message.success("Logged out successfully");
+                  }}
+                  key="logout"
+                  color="danger"
+                >
                   Log Out
                 </DropdownItem>
               </DropdownMenu>
